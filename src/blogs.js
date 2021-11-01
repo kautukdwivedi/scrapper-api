@@ -1,13 +1,14 @@
-const cheerio = require('cheerio')
-const axios = require('axios')
+import cheerio  from 'cheerio'; 
+import axios from 'axios';
 
-async function getBlogs(url){
+export default async function getBlogs(url){
     try{
+        console.log(url);
         const response = await axios(
         {   METHOD: 'GET',
             url: url,
         });
-        //console.log(response.data);
+        // console.log(response.data);
         const $ = cheerio.load(response.data);
         const selector = ".fn.ar.l"
         const data = []
@@ -16,18 +17,19 @@ async function getBlogs(url){
             $(blog).find('a').each((j, subElement) => {
                 links.push($(subElement).attr('href'));
             });
-            link = links[links.length - 1];
+            let link = links[links.length - 1];
             if(link.includes('https://') == false){
                 link = "https://medium.com" + link;
             }
-            //console.log(link);
-            creator = $(blog).find('h4').text();
+            // console.log(link);
+            let creator = $(blog).find('h4').text();
             //console.log(title);
-            title = $(blog).find('h2').text();
+            let title = $(blog).find('h2').text();
             //console.log(creator);
-            date = $(blog).find('.ae.t>p').text();
+            let date = $(blog).find('.ae.t>p').text();
             //console.log(date);
             data.push({
+                Number: i + 1,
                 Link : link,
                 Title : title,
                 Creator : creator,
@@ -39,10 +41,7 @@ async function getBlogs(url){
         });
         return data;
     }catch(error){
-        console.log(error)
+        return error;
     }
 }
 
-module.exports = {
-    getBlogs
-};

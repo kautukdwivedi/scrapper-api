@@ -1,25 +1,25 @@
-const cheerio = require('cheerio')
-const axios = require('axios')
+import cheerio  from 'cheerio'; 
+import axios from 'axios';
 
-async function getArticle(url){
+export default async function getArticle(url){
     try{
         const response = await axios(
         {   METHOD: 'GET',
             url: url,
         });
         const $ = cheerio.load(response.data);  
-        const image = $('figure img').attr('src');
+        let image = $('figure img').attr('src');
         //console.log(image);
-        const paragraphs = [];
+        let paragraphs = [];
         $('body article p').each((i, article) => {
-            para = $(article).text();
+            let para = $(article).text();
             if(para.length > 50){
                 //console.log(para)
                 paragraphs.push(para);
             }
         })
         //console.log(paragraphs)
-        const tags = []
+        let tags = []
         $('ul').last().find('li').each((i, tag) => {
             tags.push($(tag).text());
         });
@@ -41,10 +41,7 @@ async function getArticle(url){
         //console.log(details);
         return details;
     }catch(error){
-        console.log(error);
+        return error;
     }
 }
 
-module.exports = {
-    getArticle
-};
