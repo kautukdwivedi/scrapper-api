@@ -13,7 +13,14 @@ export default async function getArticle(url){
         let paragraphs = [];
         $('body article p').each((i, article) => {
             let para = $(article).text();
-            if(para.length > 50){
+            if(para.length >= 30){
+                //console.log(para)
+                paragraphs.push(para);
+            }
+        })
+        $('body ol li').each((i, article) => {
+            let para = $(article).text();
+            if(para.length > 30){
                 //console.log(para)
                 paragraphs.push(para);
             }
