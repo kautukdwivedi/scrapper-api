@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
     res.send('Medium Crawler API')
 })
 
-app.use('/id', blogRoutes);
 app.listen(port, () => {
     console.log('server started at ', port);
 });
