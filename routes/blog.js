@@ -6,3 +6,5 @@ router.get('/:id', async (req, res) => {
     let blog = await getArticle(req.params.id);
     res.send(blog);
 });
+
+export default router;

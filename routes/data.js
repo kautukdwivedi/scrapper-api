@@ -16,20 +16,4 @@ router.get('/:id', async (req, res) => {
     res.send(blogs);
 });
 
-/*router.get('/:id', async (req, res) => {
-    const url = 'https://medium.com/tag/'
-    let blogs = []
-    getBlogs(url + req.params.id).then((data)=>{
-            blogs = data;
-            for(let i = 0; i < blogs.length; i++){
-                 getArticle(blogs[i].Link).then((data) =>{
-                     blogs[i].Image = data.Image;
-                     blogs[i].Article = data.Article;
-                     blogs[i].Tags = data.Tags;
-                });
-            }
-        });
-    res.send(blogs);
-});*/
-
 export default router;
